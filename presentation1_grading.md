@@ -1,0 +1,10 @@
+Criteria | Points Earned | Max Points | Details Notes 
+Problem Understanding & Challenge Framing | 17 | 20 | Clearly explains the broader challenge, including social, economic, political, environmental, and human impact where relevant. Demonstrates strong understanding of the problem space and unmet need. Strong macro framing, but the actual problem statement is somewhat broad. 
+Market Research & Industry Analysis | 18 | 20 | Clearly analyzes the relevant market, sectors, sub-sectors, trends, driving forces, and major players. Demonstrates strong understanding of the competitive landscape and market dynamics. Excellent use of recent AI infrastructure trends and energy statistics. 
+Solution Quality & Innovation | 14 | 20 | Clearly explains the proposed solution, how it works, who it serves, and why it is innovative. Innovation may include technology, business model, operational model, or other differentiated value creation. More analytical overview than fully developed solution concept. 
+Product-Market Fit & Target Market Logic | 11 | 15 | Clearly defines the target market and relevant segments. Demonstrates strong logic connecting the proposed solution to real customer needs and market demand. Target customer and implementation pathway are not deeply defined. 
+Existing Solutions & Competitive Analysis | 8 | 10 | Clearly explains existing solutions, their deficiencies, and key competitors or stakeholders. Shows understanding of differentiation and market gaps. Good sustainability comparison, but limited direct competitive analysis. 
+Data, Evidence & Analytical Rigor | 10 | 10 | Uses relevant quantitative and qualitative data, research, charts, benchmarks, and cited sources to support arguments and conclusions. Demonstrates evidence-based thinking. Excellent sourcing and use of real-world industry data throughout. 
+Presentation Design & Structure | 4 | 5 | Slides are visually clear, structured, professional, and easy to follow. Information is organized logically and supports the narrative effectively. Some slides are text-heavy and presentation flow feels incomplete. 
+
+Total Score 82 100

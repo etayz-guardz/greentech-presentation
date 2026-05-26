@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dark Data Composting Platform — Presentation 2</title>
+<style>
+  :root{
+    --bg:#0a1410;
+    --bg-2:#0e1c16;
+    --panel:#13241c;
+    --panel-2:#172e23;
+    --line:#22382c;
+    --ink:#eaf2ea;
+    --ink-2:#b7c7bc;
+    --mute:#7d9286;
+    --green:#7dd87f;
+    --green-2:#3fae5f;
+    --gold:#d6b260;
+    --gold-2:#b88d3a;
+    --blue:#6ec1e4;
+    --red:#e07b6b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,'SF Pro Display','Inter',system-ui,Segoe UI,Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow:hidden;}
+  body{height:100vh;width:100vw;}
+  .deck{position:fixed; inset:0; display:flex; transition:transform .55s cubic-bezier(.7,.05,.2,1); will-change:transform;}
+  .slide{
+    flex:0 0 100vw; height:100vh; padding:52px 88px 72px;
+    display:grid; grid-template-rows:auto auto 1fr; row-gap:22px;
+    background:
+      radial-gradient(1200px 700px at 90% -10%, rgba(125,216,127,.07), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(214,178,96,.06), transparent 60%),
+      var(--bg);
+  }
+  .kicker{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--green); font-weight:700; text-align:center;}
+  h1.title{font-size:38px; line-height:1.08; font-weight:800; margin:0 auto; letter-spacing:-.015em; text-align:center;}
+  .slide-img{padding:20px 48px 44px; row-gap:8px;}
+  .slide-img .visual{align-self:stretch; min-height:0;}
+  .slide-img .visual > *{max-width:none;}
+  .slide-img .visual img{width:100%; height:100%; object-fit:contain;}
+  .lede{font-size:17px; line-height:1.55; color:var(--ink-2); margin:0; max-width:80ch;}
+  .visual{align-self:stretch; justify-self:stretch; width:100%; display:flex; align-items:center; justify-content:center;}
+  .visual > *{width:100%; max-width:1100px;}
+  .footer{
+    position:absolute; left:88px; right:88px; bottom:20px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; color:var(--mute); border-top:1px solid var(--line); padding-top:9px;
+  }
+  .footer b{color:var(--ink-2); font-weight:600;}
+  .progress{position:fixed; top:0; left:0; right:0; height:3px; z-index:50;}
+  .progress > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--green),var(--gold)); transition:width .5s;}
+  .ctrl{position:fixed; right:18px; bottom:18px; display:flex; gap:6px; z-index:50;}
+  .ctrl button{background:var(--panel); color:var(--ink); border:1px solid var(--line); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:14px;}
+  .ctrl button:hover{background:var(--panel-2);}
+  .pageno{position:fixed; left:18px; bottom:18px; z-index:50; font-size:11px; color:var(--mute); letter-spacing:.18em;}
+  .pill{display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); background:rgba(214,178,96,.08); padding:5px 11px; border-radius:999px; border:1px solid rgba(214,178,96,.2);}
+  .pill.green{color:var(--green); background:rgba(125,216,127,.08); border-color:rgba(125,216,127,.2);}
+  .pill.blue{color:var(--blue); background:rgba(110,193,228,.08); border-color:rgba(110,193,228,.22);}
+  svg text{font-family:inherit;}
+
+  /* ---------- Slide 1: title ---------- */
+  .title-slide{grid-template-rows:1fr auto auto auto 1fr; text-align:center; justify-items:center;}
+  .title-slide .big{font-size:88px; line-height:.95; font-weight:800; margin:0; letter-spacing:-.025em;}
+  .title-slide .big .accent{background:linear-gradient(90deg,var(--green),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .title-slide .tags{display:flex; gap:10px; justify-content:center;}
+  .thesis{margin-top:6px; font-size:15px; color:var(--ink-2); line-height:1.6; max-width:68ch; text-align:center;}
+
+  /* ---------- Slide 2: ecosystem / value chain ---------- */
+  .chain-wrap{width:100%; overflow:visible;}
+
+  /* ---------- Slide 3: player map ---------- */
+  .playermap{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; width:100%;}
+  .pcard{border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:var(--panel);}
+  .pcard.us{border-color:var(--green); background:linear-gradient(160deg,rgba(125,216,127,.13),var(--panel)); box-shadow:0 0 0 1px rgba(125,216,127,.2);}
+  .pcard .role{font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--mute); font-weight:700; margin-bottom:6px;}
+  .pcard.us .role{color:var(--green);}
+  .pcard .cat{font-size:15px; font-weight:800; color:var(--ink);}
+  .pcard.us .cat{color:var(--green);}
+  .pcard .players{font-size:11px; color:var(--mute); margin-top:4px; line-height:1.5;}
+  .pcard .rel{font-size:11px; color:var(--ink-2); margin-top:10px; line-height:1.5; border-top:1px solid var(--line); padding-top:8px;}
+
+  /* ---------- Slide 3: Solution Iteration — vertical flow ---------- */
+  .slide-flow{padding:32px 88px 44px; row-gap:10px; grid-template-rows:auto auto 1fr auto;}
+  .si-outer{display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:0;}
+  /* Flow nodes — all uniform, text centered */
+  .si-node{border-radius:10px; padding:12px 18px; border:1px solid var(--line); background:var(--panel); text-align:center;}
+  .si-node-eyebrow{font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:700; margin-bottom:3px;}
+  .si-node-title{font-size:14.5px; font-weight:800; color:var(--ink); line-height:1.25; margin-bottom:4px;}
+  .si-node-body{font-size:12px; color:var(--ink-2); line-height:1.5;}
+  .si-node-tags{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; justify-content:center;}
+  .si-ntag{font-size:9.5px; color:var(--mute); border:1px solid var(--line); border-radius:4px; padding:2px 7px; font-weight:600;}
+  .si-node-q{font-size:12px; color:var(--ink-2); font-style:italic; margin-top:5px; line-height:1.45;}
+  /* Only node 4 stands out */
+  .si-n4{border-color:rgba(125,216,127,.4); background:rgba(125,216,127,.07); box-shadow:0 0 0 1px rgba(125,216,127,.15);}
+  .si-n4 .si-node-title{color:var(--green);}
+  /* Arrow connector */
+  .si-arr{text-align:center; color:var(--mute); font-size:16px; line-height:1; padding:4px 0;}
+  /* Pills inside node 4 */
+  .si-npills{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; justify-content:center;}
+  .si-npill{font-size:11.5px; font-weight:700; padding:5px 14px; border-radius:999px; border:1px solid rgba(125,216,127,.3); background:rgba(125,216,127,.08); color:var(--green);}
+  .si-npill-del{border-color:rgba(224,123,107,.28); background:rgba(224,123,107,.06); color:var(--red);}
+  /* Core question — plain text, centered, no box */
+  .si-core{width:58%; text-align:center; margin-top:44px;}
+  .si-btitle{font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:8px;}
+  .si-bq{font-size:16px; font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:8px;}
+  .si-btrans{display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
+  .si-btpill{font-size:11px; font-weight:600; color:var(--ink-2); border:1px solid var(--line); background:rgba(255,255,255,.04); padding:3px 10px; border-radius:6px;}
+  /* Slogan — top of visual, acts as subtitle */
+  .si-slogan{text-align:center; padding:0 0 12px; border-bottom:1px solid var(--line); margin-bottom:0;}
+  .si-diagram{display:flex; flex-direction:column; align-items:stretch; width:58%; gap:0; margin-top:36px;}
+  .si-slogan p{font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; margin:0;}
+  .si-slogan strong{color:var(--green);}
+
+  /* ---------- Slide 5: competitive grid (reused) ---------- */
+  .compgrid{display:grid; grid-template-columns:1.5fr repeat(5,1fr) .9fr; gap:5px;}
+  .compgrid .ch{font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:600; padding:7px 8px; text-align:center;}
+  .compgrid .ch.lbl{text-align:left;}
+  .compgrid .row{display:contents;}
+  .compgrid .rowname{padding:10px; border-radius:9px; background:var(--panel); border:1px solid var(--line);}
+  .compgrid .rowname .cat{font-size:12px; font-weight:700; color:var(--ink);}
+  .compgrid .rowname .ex{font-size:10px; color:var(--mute); margin-top:2px;}
+  .compgrid .cell{display:flex; align-items:center; justify-content:center; border-radius:9px; background:var(--panel); border:1px solid var(--line); font-size:16px; font-weight:700; min-height:46px;}
+  .compgrid .cell.yes{background:rgba(125,216,127,.14); border-color:rgba(125,216,127,.45); color:var(--green);}
+  .compgrid .cell.part{background:rgba(214,178,96,.10); border-color:rgba(214,178,96,.35); color:var(--gold);}
+  .compgrid .cell.no{background:rgba(224,123,107,.06); border-color:rgba(224,123,107,.22); color:var(--red); opacity:.85;}
+  .compgrid .cov{display:flex; align-items:center; justify-content:center; border-radius:9px; background:var(--panel); border:1px solid var(--line); font-size:12px; font-weight:700; color:var(--ink-2);}
+  .compgrid .us .rowname{background:linear-gradient(180deg,rgba(125,216,127,.18),rgba(125,216,127,.06)); border-color:var(--green); box-shadow:0 0 0 1px rgba(125,216,127,.25);}
+  .compgrid .us .rowname .cat{color:var(--green);}
+  .compgrid .us .cov{background:var(--green); color:#0a1410; border-color:var(--green);}
+  .complegend{display:flex; gap:18px; justify-content:flex-end; font-size:11px; color:var(--mute); margin-top:8px;}
+
+  /* ---------- Slide 6: S/W table ---------- */
+  .sw-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .sw-table th{color:var(--mute); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; padding:0 12px 9px; text-align:left;}
+  .sw-table th:nth-child(2){color:var(--green);}
+  .sw-table th:nth-child(3){color:var(--red);}
+  .sw-table th:nth-child(4){color:var(--gold);}
+  .sw-table td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.4;}
+  .sw-table td:first-child{font-weight:700; color:var(--ink); white-space:nowrap;}
+  .sw-table td:nth-child(2){color:var(--ink-2);}
+  .sw-table td:nth-child(3){color:var(--ink-2);}
+  .sw-table .verdict{font-size:11px; font-weight:700; border-radius:6px; padding:3px 8px; white-space:nowrap;}
+  .sw-table .verdict.low{background:rgba(125,216,127,.12); color:var(--green);}
+  .sw-table .verdict.med{background:rgba(214,178,96,.12); color:var(--gold);}
+  .sw-table .verdict.none{background:rgba(224,123,107,.08); color:var(--red);}
+  .sw-table tr:last-child td{border-bottom:none;}
+
+  /* ---------- Slide 7: positioning ---------- */
+  .seg-wrap{display:grid; grid-template-columns:1fr 1.3fr; gap:28px; align-items:center; width:100%;}
+  .seg-icp{display:flex; flex-direction:column; gap:10px;}
+  .icp-card{border:1px solid var(--line); border-radius:11px; padding:13px 16px; background:var(--panel);}
+  .icp-card .lbl{font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:4px;}
+  .icp-card .val{font-size:14px; font-weight:700; color:var(--ink); line-height:1.35;}
+  .icp-card .sub{font-size:11px; color:var(--mute); margin-top:3px; line-height:1.4;}
+
+  /* ---------- Slide 8: business model ---------- */
+  .biz-wrap{display:grid; grid-template-columns:1fr 1.2fr; gap:28px; align-items:start; width:100%;}
+  .rev-lines{display:flex; flex-direction:column; gap:10px;}
+  .rev{border:1px solid var(--line); border-radius:11px; padding:14px 18px; background:var(--panel); display:flex; gap:14px; align-items:flex-start;}
+  .rev .n{font-size:22px; font-weight:800; color:var(--green); line-height:1; flex-shrink:0; min-width:28px;}
+  .rev .body .ttl{font-size:14px; font-weight:700; color:var(--ink);}
+  .rev .body .desc{font-size:12px; color:var(--ink-2); margin-top:3px; line-height:1.4;}
+  .rev .tag{margin-top:6px;}
+  .validate-box{margin-top:14px; border:1px dashed var(--gold); border-radius:10px; padding:11px 15px; background:rgba(214,178,96,.05); font-size:12px; color:var(--ink-2); line-height:1.55;}
+  .validate-box b{color:var(--gold);}
+
+  @media print{
+    @page{size:1280px 720px; margin:0;}
+    html,body{overflow:visible !important; width:1280px; height:auto;}
+    .deck{position:static !important; inset:auto !important; display:block !important; transform:none !important; width:1280px; height:auto;}
+    .slide{flex:none !important; width:1280px !important; height:720px !important; page-break-after:always; break-after:page;}
+    .slide:last-child{page-break-after:auto; break-after:auto;}
+    .ctrl,.progress,.pageno{display:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress"><i id="bar"></i></div>
+
+<div class="deck" id="deck">
+
+  <!-- ============================================================
+       01 — TITLE
+  ============================================================ -->
+  <section class="slide title-slide">
+    <div></div>
+    <h1 class="big">Dark Data<br/><span class="accent">Composting</span> Platform</h1>
+    <div>
+      <p class="thesis">Enterprises store vast amounts of data they will never use — and keep it forever out of fear. We score every dataset on <strong style="color:var(--ink)">Cost + Carbon Footprint + Legal Risk</strong>, and make it safe and auditable to delete.</p>
+    </div>
+    <div></div>
+    <div class="footer"><span>01 / 07</span><span>Greentech · 2026</span></div>
+  </section>
+
+  <!-- ============================================================
+       02 — MARKET ECOSYSTEM & VALUE CHAIN
+  ============================================================ -->
+  <section class="slide slide-img">
+    <div class="kicker">Market Ecosystem</div>
+    <h1 class="title">The Data Value Chain</h1>
+    <div class="visual">
+      <img src="compostingvaluechain.png" alt="The Data Value Chain"/>
+    </div>
+    <div class="footer"><span>02 / 07 — Value Chain</span><span>Our focus: stage 4 — the decisioning layer no incumbent owns.</span></div>
+  </section>
+
+  <!-- ============================================================
+       03 — SOLUTION ITERATION
+  ============================================================ -->
+  <section class="slide slide-flow">
+    <div class="kicker">Solution Iteration</div>
+    <h1 class="title">From Broad Platform to Decision Layer</h1>
+    <div class="visual">
+      <div class="si-outer">
+
+        <!-- Slogan — top, prominent -->
+        <div class="si-slogan">
+          <p>We are the <strong>decision and audit layer</strong> for dark data.<br/>We do not replace existing tools — we connect to them and make delete/archive decisions <strong>safe, measurable, and auditable</strong>.</p>
+        </div>
+
+        <div class="si-diagram">
+
+          <!-- Node 1 -->
+          <div class="si-node">
+            <div class="si-node-eyebrow">1 · Market Learning</div>
+            <div class="si-node-title">The ecosystem is already crowded.</div>
+            <div class="si-node-body">Cloud storage, governance, backup, FinOps, and ESG tools are already strong and well-established.</div>
+            <div class="si-node-tags">
+              <span class="si-ntag">AWS</span><span class="si-ntag">Azure</span><span class="si-ntag">Google Cloud</span><span class="si-ntag">Snowflake</span><span class="si-ntag">Databricks</span><span class="si-ntag">Collibra</span><span class="si-ntag">BigID</span><span class="si-ntag">Rubrik</span><span class="si-ntag">Veeam</span>
+            </div>
+          </div>
+          <div class="si-arr">↓</div>
+
+          <!-- Node 2 -->
+          <div class="si-node si-n2">
+            <div class="si-node-eyebrow">2 · Strategic Choice</div>
+            <div class="si-node-title">We should not claim to manage the whole data lifecycle.</div>
+            <div class="si-node-body">Competing with incumbents across storage, governance, backup, and reporting would be too broad.</div>
+          </div>
+          <div class="si-arr">↓</div>
+
+          <!-- Node 3 -->
+          <div class="si-node si-n3">
+            <div class="si-node-eyebrow">3 · Market Gap</div>
+            <div class="si-node-title">Existing tools optimize infrastructure — not decisions.</div>
+            <div class="si-node-body">They help store, classify, back up, or reduce cost — but rarely answer:</div>
+            <div class="si-node-q">"What should we safely do with this unused data?"</div>
+          </div>
+          <div class="si-arr">↓</div>
+
+          <!-- Node 4 -->
+          <div class="si-node si-n4">
+            <div class="si-node-eyebrow">4 · Refined Offering</div>
+            <div class="si-node-title">Dark Data Decision Intelligence</div>
+            <div class="si-node-body">We help enterprises decide whether to:</div>
+            <div class="si-npills">
+              <span class="si-npill">Keep</span>
+              <span class="si-npill">Compress</span>
+              <span class="si-npill">Anonymize</span>
+              <span class="si-npill">Archive</span>
+              <span class="si-npill si-npill-del">Delete</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Core question — plain text, no box -->
+        <div class="si-core">
+          <div class="si-btitle">Core Question We Answer</div>
+          <div class="si-bq">Which data should we act on — and what value does that action create?</div>
+          <div class="si-btrans">
+            <span class="si-btpill">Cost impact</span>
+            <span class="si-btpill">Carbon impact</span>
+            <span class="si-btpill">Legal risk</span>
+            <span class="si-btpill">Business value</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="footer"><span>03 / 07 — Solution Iteration</span><span>The gap is narrower and stronger — and no incumbent fills it.</span></div>
+  </section>
+
+  <!-- ============================================================
+       05 — COMPETITIVE LANDSCAPE (capability grid)
+  ============================================================ -->
+  <section class="slide">
+    <div class="kicker">Competitive Landscape</div>
+    <h1 class="title">Five capabilities. No existing player covers more than two.</h1>
+    <div class="visual">
+      <div>
+        <div class="compgrid">
+          <div class="ch lbl">Category</div>
+          <div class="ch">Scan dark data</div>
+          <div class="ch">Tri-axis scoring</div>
+          <div class="ch">Carbon accounting</div>
+          <div class="ch">Legal &amp; compliance</div>
+          <div class="ch">Auditable deletion</div>
+          <div class="ch">Coverage</div>
+
+          <div class="row us">
+            <div class="rowname"><div class="cat">Dark Data Composting</div><div class="ex">Us</div></div>
+            <div class="cell yes">✓</div>
+            <div class="cell yes">✓</div>
+            <div class="cell yes">✓</div>
+            <div class="cell yes">✓</div>
+            <div class="cell yes">✓</div>
+            <div class="cov">5 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">Hyperscaler storage</div><div class="ex">AWS S3 · GCS · Azure Blob</div></div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell part">◐</div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cov">0 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">Data platforms</div><div class="ex">Snowflake · Databricks</div></div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cov">0 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">Backup &amp; protection</div><div class="ex">Rubrik · Veeam · Cohesity</div></div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cov">0 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">Catalog &amp; governance</div><div class="ex">Collibra · Informatica · Atlan</div></div>
+            <div class="cell yes">✓</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cov">1 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">FinOps</div><div class="ex">Flexera · Apptio · Turbonomic</div></div>
+            <div class="cell part">◐</div>
+            <div class="cell part">◐</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cov">0 / 5</div>
+          </div>
+          <div class="row">
+            <div class="rowname"><div class="cat">ESG / sustainability</div><div class="ex">Watershed · Persefoni</div></div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cell yes">✓</div>
+            <div class="cell no">✗</div>
+            <div class="cell no">✗</div>
+            <div class="cov">1 / 5</div>
+          </div>
+        </div>
+        <div class="complegend">
+          <span style="color:var(--green);">✓ full</span>
+          <span style="color:var(--gold);">◐ partial</span>
+          <span style="color:var(--red);">✗ none</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>04 / 07 — Competitive Landscape</span><span>Every existing tool is optimised for one column. The composting layer is where they structurally cannot compete.</span></div>
+  </section>
+
+  <!-- ============================================================
+       06 — STRENGTHS & WEAKNESSES vs US
+  ============================================================ -->
+  <section class="slide">
+    <div class="kicker">Strengths &amp; Weaknesses</div>
+    <h1 class="title">Where each competitor is strong — and why they still can't replace us.</h1>
+    <div class="visual">
+      <table class="sw-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Their Strengths</th>
+            <th>Their Weaknesses vs Us</th>
+            <th>Threat level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hyperscalers<br/><span style="font-size:10px;color:var(--mute);">AWS · GCP · Azure</span></td>
+            <td>Infinite scale, existing customer trust, native lifecycle policies, partial carbon dashboards.</td>
+            <td>Incentivised to retain — not delete. No cross-cloud view. No legal/compliance scoring. No ESG audit output.</td>
+            <td><span class="verdict med">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Data Platforms<br/><span style="font-size:10px;color:var(--mute);">Snowflake · DBX</span></td>
+            <td>Deep structured-data access, strong ML/AI ecosystem, large enterprise install base.</td>
+            <td>Structured data only — miss unstructured dark data (80% of the problem). No deletion, no ESG, no legal scoring.</td>
+            <td><span class="verdict low">Low</span></td>
+          </tr>
+          <tr>
+            <td>Backup &amp; Protection<br/><span style="font-size:10px;color:var(--mute);">Rubrik · Veeam</span></td>
+            <td>Trusted for data safety, strong compliance workflows, broad enterprise penetration.</td>
+            <td>Mission is to retain and protect — deletion is antithetical. No carbon accounting, no business-value scoring.</td>
+            <td><span class="verdict low">Low</span></td>
+          </tr>
+          <tr>
+            <td>Catalog &amp; Governance<br/><span style="font-size:10px;color:var(--mute);">Collibra · Atlan</span></td>
+            <td>Best-in-class discovery and classification, strong DPO relationships, rich metadata graphs.</td>
+            <td>Catalog without action — owners see the data but lack a deletion workflow or ESG output. No carbon axis.</td>
+            <td><span class="verdict med">Medium</span></td>
+          </tr>
+          <tr>
+            <td>FinOps<br/><span style="font-size:10px;color:var(--mute);">Flexera · Apptio</span></td>
+            <td>Deep CFO/CIO relationships, proven cost-reduction ROI, cloud-agnostic cost view.</td>
+            <td>Cost lens only — no carbon, legal, or ESG framing. Cannot produce CSRD-compliant output.</td>
+            <td><span class="verdict med">Medium</span></td>
+          </tr>
+          <tr>
+            <td>ESG / Sustainability<br/><span style="font-size:10px;color:var(--mute);">Watershed · Persefoni</span></td>
+            <td>Strong CSO relationships, CSRD/SEC reporting workflows, carbon methodology credibility.</td>
+            <td>Report-only — no data-layer access. Cannot reduce Scope-3 emissions, only measure them. Miss the cost and legal axes.</td>
+            <td><span class="verdict low">Low</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer"><span>05 / 07 — S/W Analysis</span><span>Medium-threat players (hyperscalers, catalog, FinOps) could add one feature — but structural incentives prevent them from owning the full decisioning layer.</span></div>
+  </section>
+
+  <!-- ============================================================
+       07 — SEGMENT REFINEMENT & POSITIONING MAP
+  ============================================================ -->
+  <section class="slide">
+    <div class="kicker">Market Segment &amp; Positioning</div>
+    <h1 class="title">Entry wedge: EU-regulated Finance &amp; Telco — the segment where all three pressures converge.</h1>
+    <div class="visual">
+      <div class="seg-wrap">
+        <div class="seg-icp">
+          <div class="icp-card">
+            <div class="lbl">Refined ICP</div>
+            <div class="val">EU Finance &amp; Telco enterprises</div>
+            <div class="sub">&gt;$1B revenue · 1–10 PB cloud storage · active CSRD reporting obligation · DPO on staff</div>
+          </div>
+          <div class="icp-card">
+            <div class="lbl">Why this segment first</div>
+            <div class="val">Highest convergence of all three pressures</div>
+            <div class="sub">CSRD Scope-3 disclosure (mandatory 2025) + GDPR/DORA retention fines + FinOps cost mandate from CFO. No other segment has all three live simultaneously.</div>
+          </div>
+          <div class="icp-card">
+            <div class="lbl">Expansion path</div>
+            <div class="val">EU Health → UK Finance → US regulated</div>
+            <div class="sub">Each step adds one regulatory driver. US SEC climate rule activates the US market in Year 3.</div>
+          </div>
+        </div>
+
+        <!-- Positioning map SVG -->
+        <svg viewBox="0 0 480 340" width="100%" height="100%">
+          <defs>
+            <marker id="axarr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 z" fill="#7d9286"/>
+            </marker>
+          </defs>
+
+          <!-- Axes -->
+          <line x1="60" y1="290" x2="450" y2="290" stroke="#22382c" stroke-width="1.5" marker-end="url(#axarr)"/>
+          <line x1="60" y1="290" x2="60"  y2="20"  stroke="#22382c" stroke-width="1.5" marker-end="url(#axarr)"/>
+
+          <!-- Axis labels -->
+          <text x="255" y="318" text-anchor="middle" font-size="11" fill="#7d9286" letter-spacing=".5">ESG / Carbon focus  →</text>
+          <text x="22"  y="160" text-anchor="middle" font-size="11" fill="#7d9286" letter-spacing=".5" transform="rotate(-90,22,160)">Data action depth  →</text>
+
+          <!-- Quadrant shading -->
+          <rect x="60" y="155" width="195" height="135" fill="rgba(224,123,107,.04)" rx="0"/>
+          <rect x="255" y="20"  width="195" height="135" fill="rgba(125,216,127,.06)" rx="0"/>
+
+          <!-- Competitor dots -->
+          <!-- Hyperscalers: low ESG, low action -->
+          <circle cx="130" cy="255" r="14" fill="rgba(110,193,228,.18)" stroke="#6ec1e4" stroke-width="1.2"/>
+          <text x="130" y="259" text-anchor="middle" font-size="9" fill="#6ec1e4" font-weight="700">Hyper</text>
+          <text x="130" y="278" text-anchor="middle" font-size="9" fill="#7d9286">AWS/GCP/Azure</text>
+
+          <!-- FinOps: low ESG, mid action -->
+          <circle cx="145" cy="210" r="13" fill="rgba(214,178,96,.15)" stroke="#d6b260" stroke-width="1.2"/>
+          <text x="145" y="214" text-anchor="middle" font-size="9" fill="#d6b260" font-weight="700">FinOps</text>
+          <text x="145" y="230" text-anchor="middle" font-size="9" fill="#7d9286">Flexera/Apptio</text>
+
+          <!-- Backup: low ESG, low-mid action -->
+          <circle cx="110" cy="230" r="12" fill="rgba(214,178,96,.10)" stroke="#b88d3a" stroke-width="1.2"/>
+          <text x="110" y="234" text-anchor="middle" font-size="8.5" fill="#b88d3a" font-weight="700">Backup</text>
+
+          <!-- Catalog: mid ESG, mid action -->
+          <circle cx="240" cy="195" r="14" fill="rgba(110,193,228,.12)" stroke="#6ec1e4" stroke-width="1.2"/>
+          <text x="240" y="199" text-anchor="middle" font-size="9" fill="#6ec1e4" font-weight="700">Catalog</text>
+          <text x="240" y="215" text-anchor="middle" font-size="9" fill="#7d9286">Collibra/Atlan</text>
+
+          <!-- ESG tools: high ESG, low action -->
+          <circle cx="360" cy="258" r="14" fill="rgba(125,216,127,.12)" stroke="#3fae5f" stroke-width="1.2"/>
+          <text x="360" y="262" text-anchor="middle" font-size="9" fill="#7dd87f" font-weight="700">ESG</text>
+          <text x="360" y="278" text-anchor="middle" font-size="9" fill="#7d9286">Watershed/Persefoni</text>
+
+          <!-- Non-competitors: ERP / Audit -->
+          <circle cx="290" cy="240" r="12" fill="rgba(125,216,127,.07)" stroke="#22382c" stroke-width="1"/>
+          <text x="290" y="244" text-anchor="middle" font-size="8" fill="#7d9286" font-weight="600">ERP</text>
+
+          <circle cx="340" cy="220" r="11" fill="rgba(125,216,127,.07)" stroke="#22382c" stroke-width="1"/>
+          <text x="340" y="224" text-anchor="middle" font-size="8" fill="#7d9286" font-weight="600">Audit</text>
+
+          <!-- Us: high ESG, high action -->
+          <circle cx="400" cy="65" r="20" fill="rgba(125,216,127,.28)" stroke="#7dd87f" stroke-width="2"/>
+          <text x="400" y="61" text-anchor="middle" font-size="10" fill="#7dd87f" font-weight="800">Us</text>
+          <text x="400" y="75" text-anchor="middle" font-size="9" fill="#7dd87f">DDC</text>
+          <text x="400" y="100" text-anchor="middle" font-size="10" fill="#7dd87f">Unique</text>
+          <text x="400" y="113" text-anchor="middle" font-size="10" fill="#7dd87f">position</text>
+        </svg>
+      </div>
+    </div>
+    <div class="footer"><span>06 / 07 — Segment &amp; Positioning</span><span>Non-competitors (ERP, audit firms) operate in the same buying cycle but sell to adjacent budgets — partnership, not competition.</span></div>
+  </section>
+
+  <!-- ============================================================
+       08 — BUSINESS MODEL
+  ============================================================ -->
+  <section class="slide">
+    <div class="kicker">Business Model</div>
+    <h1 class="title">Integration SaaS — priced on data volume, anchored in the decisioning layer.</h1>
+    <div class="visual">
+      <div class="biz-wrap">
+
+        <!-- Value chain position -->
+        <svg viewBox="0 0 380 320" width="100%" height="100%">
+          <!-- Chain boxes -->
+          <rect x="90" y="10"  width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
+          <text x="190" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Cloud Infrastructure</text>
+
+          <rect x="90" y="68"  width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
+          <text x="190" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Data Platforms &amp; Governance</text>
+
+          <!-- Us highlighted -->
+          <rect x="70" y="126" width="240" height="48" rx="10" fill="rgba(125,216,127,.16)" stroke="#7dd87f" stroke-width="2"/>
+          <text x="190" y="146" text-anchor="middle" font-size="13" font-weight="800" fill="#7dd87f">Dark Data Composting</text>
+          <text x="190" y="163" text-anchor="middle" font-size="11" fill="#7dd87f">← Decisioning &amp; Execution Layer</text>
+
+          <rect x="90" y="192" width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
+          <text x="190" y="217" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">ESG Reporting Tools</text>
+
+          <rect x="90" y="250" width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
+          <text x="190" y="275" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Audit / Compliance Teams</text>
+
+          <!-- Arrows -->
+          <line x1="190" y1="50"  x2="190" y2="68"  stroke="#22382c" stroke-width="1.2"/>
+          <line x1="190" y1="108" x2="190" y2="126" stroke="#3fae5f" stroke-width="1.5"/>
+          <line x1="190" y1="174" x2="190" y2="192" stroke="#3fae5f" stroke-width="1.5"/>
+          <line x1="190" y1="232" x2="190" y2="250" stroke="#22382c" stroke-width="1.2"/>
+
+          <!-- Read-only metadata note -->
+          <text x="320" y="155" font-size="9" fill="#7d9286" text-anchor="start">read-only</text>
+          <text x="320" y="166" font-size="9" fill="#7d9286" text-anchor="start">metadata API</text>
+          <line x1="310" y1="155" x2="280" y2="150" stroke="#22382c" stroke-width="1" stroke-dasharray="3"/>
+        </svg>
+
+        <!-- Revenue lines -->
+        <div>
+          <div class="rev-lines">
+            <div class="rev">
+              <div class="n">1</div>
+              <div class="body">
+                <div class="ttl">Platform Subscription</div>
+                <div class="desc">Per-PB scanned per month. Tiered by volume (Starter / Growth / Enterprise). Covers discovery, scoring, and workflow.</div>
+                <div class="tag"><span class="pill green">Core ARR</span></div>
+              </div>
+            </div>
+            <div class="rev">
+              <div class="n">2</div>
+              <div class="body">
+                <div class="ttl">ESG Audit Export (Premium)</div>
+                <div class="desc">CSRD-ready audit log + Scope-3 reduction certificate. Unlocked as a premium tier add-on. High willingness-to-pay during disclosure season.</div>
+                <div class="tag"><span class="pill">Premium Upsell</span></div>
+              </div>
+            </div>
+            <div class="rev">
+              <div class="n">3</div>
+              <div class="body">
+                <div class="ttl">Synthetic Data Exchange</div>
+                <div class="desc">Year 3+ marketplace: anonymised / synthesised datasets sold to AI labs &amp; researchers. Turns data waste into a monetisable asset.</div>
+                <div class="tag"><span class="pill blue">Marketplace — Year 3+</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="validate-box">
+            <b>Validation:</b> CSRD compliance budgets are averaging €1–3M per enterprise (Verdantix 2024). FinOps market growing at 22% CAGR. Comparable integration SaaS (e.g. Rubrik, Collibra) trade at 8–12× ARR. Target: €50K–€200K ACV per enterprise customer.
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="footer"><span>07 / 07 — Business Model</span><span>Model type: B2B Integration SaaS. No data egress — metadata read-only. Revenue aligned with customer outcome: less storage = more value.</span></div>
+  </section>
+
+</div>
+
+<div class="pageno" id="pageno">01 / 07</div>
+<nav class="ctrl"><button id="prev">‹</button><button id="next">›</button></nav>
+
+<script>
+  const deck = document.getElementById('deck');
+  const slides = deck.querySelectorAll('.slide');
+  const total = slides.length;
+  const bar = document.getElementById('bar');
+  const pageno = document.getElementById('pageno');
+  let i = 0;
+  function go(n){
+    i = Math.max(0, Math.min(total-1, n));
+    deck.style.transform = `translateX(${-i*100}vw)`;
+    bar.style.width = ((i+1)/total*100) + '%';
+    pageno.textContent = (i+1).toString().padStart(2,'0') + ' / ' + total.toString().padStart(2,'0');
+  }
+  document.getElementById('next').onclick = ()=>go(i+1);
+  document.getElementById('prev').onclick = ()=>go(i-1);
+  document.addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight' || e.key===' ' || e.key==='PageDown'){e.preventDefault(); go(i+1);}
+    if(e.key==='ArrowLeft'  || e.key==='PageUp'){e.preventDefault(); go(i-1);}
+    if(e.key==='Home') go(0);
+    if(e.key==='End')  go(total-1);
+  });
+  go(0);
+</script>
+</body>
+</html>
