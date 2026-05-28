@@ -86,9 +86,9 @@
   .slide-flow{padding:32px 88px 44px; row-gap:10px; grid-template-rows:auto auto 1fr auto;}
   .si-outer{display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:0;}
   /* Flow nodes — all uniform, text centered */
-  .si-node{border-radius:10px; padding:12px 18px; border:1px solid var(--line); background:var(--panel); text-align:center;}
-  .si-node-eyebrow{font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:700; margin-bottom:3px;}
-  .si-node-title{font-size:14.5px; font-weight:800; color:var(--ink); line-height:1.25; margin-bottom:4px;}
+  .si-node{border-radius:10px; padding:22px 24px; border:1px solid var(--line); background:var(--panel); text-align:center;}
+  .si-node-eyebrow{font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:700; margin-bottom:6px;}
+  .si-node-title{font-size:20px; font-weight:800; color:var(--ink); line-height:1.25;}
   .si-node-body{font-size:12px; color:var(--ink-2); line-height:1.5;}
   .si-node-tags{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; justify-content:center;}
   .si-ntag{font-size:9.5px; color:var(--mute); border:1px solid var(--line); border-radius:4px; padding:2px 7px; font-weight:600;}
@@ -109,10 +109,10 @@
   .si-btrans{display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
   .si-btpill{font-size:11px; font-weight:600; color:var(--ink-2); border:1px solid var(--line); background:rgba(255,255,255,.04); padding:3px 10px; border-radius:6px;}
   /* Slogan — top of visual, acts as subtitle */
-  .si-slogan{text-align:center; padding:0 0 12px; border-bottom:1px solid var(--line); margin-bottom:0;}
+  .si-slogan{text-align:center; padding:0 0 16px; border-bottom:1px solid var(--line); margin-bottom:0;}
   .si-diagram{display:flex; flex-direction:column; align-items:stretch; width:58%; gap:0; margin-top:36px;}
-  .si-slogan p{font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; margin:0;}
-  .si-slogan strong{color:var(--green);}
+  .si-slogan p{font-size:26px; font-weight:800; color:var(--ink-2); line-height:1.25; margin:0 0 10px; letter-spacing:-.01em;}
+  .si-slogan .si-slogan-main{font-size:26px; font-weight:800; color:var(--ink); line-height:1.25; margin:0; letter-spacing:-.01em;}
 
   /* ---------- Slide 5: competitive grid (reused) ---------- */
   .compgrid{display:grid; grid-template-columns:1.5fr repeat(5,1fr) .9fr; gap:5px;}
@@ -132,21 +132,18 @@
   .compgrid .us .cov{background:var(--green); color:#0a1410; border-color:var(--green);}
   .complegend{display:flex; gap:18px; justify-content:flex-end; font-size:11px; color:var(--mute); margin-top:8px;}
 
-  /* ---------- Slide 6: S/W table ---------- */
-  .sw-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .sw-table th{color:var(--mute); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; padding:0 12px 9px; text-align:left;}
-  .sw-table th:nth-child(2){color:var(--green);}
-  .sw-table th:nth-child(3){color:var(--red);}
-  .sw-table th:nth-child(4){color:var(--gold);}
-  .sw-table td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.4;}
-  .sw-table td:first-child{font-weight:700; color:var(--ink); white-space:nowrap;}
-  .sw-table td:nth-child(2){color:var(--ink-2);}
-  .sw-table td:nth-child(3){color:var(--ink-2);}
-  .sw-table .verdict{font-size:11px; font-weight:700; border-radius:6px; padding:3px 8px; white-space:nowrap;}
-  .sw-table .verdict.low{background:rgba(125,216,127,.12); color:var(--green);}
-  .sw-table .verdict.med{background:rgba(214,178,96,.12); color:var(--gold);}
-  .sw-table .verdict.none{background:rgba(224,123,107,.08); color:var(--red);}
-  .sw-table tr:last-child td{border-bottom:none;}
+  /* ---------- Slide 5: competitor category cards ---------- */
+  .cat-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; width:100%;}
+  .cat-card{border:1px solid var(--line); border-radius:12px; padding:16px 14px; background:var(--panel); display:flex; flex-direction:column; gap:8px;}
+  .cat-name{font-size:14px; font-weight:800; color:var(--ink); line-height:1.2;}
+  .cat-ex{font-size:10px; color:var(--mute); line-height:1.4; margin-top:1px;}
+  .cat-divider{height:1px; background:var(--line); flex-shrink:0;}
+  .cat-lbl{font-size:9px; letter-spacing:.18em; text-transform:uppercase; font-weight:700; margin-bottom:3px;}
+  .cat-lbl.s{color:var(--blue);}
+  .cat-lbl.w{color:var(--red);}
+  .cat-text{font-size:11px; color:var(--ink-2); line-height:1.5;}
+  .cat-bottom{margin-top:10px; padding:13px 20px; background:rgba(125,216,127,.06); border:1px solid rgba(125,216,127,.2); border-radius:10px; font-size:12.5px; color:var(--ink-2); line-height:1.6; text-align:center; width:100%;}
+  .cat-bottom strong{color:var(--green); font-weight:700;}
 
   /* ---------- Slide 7: positioning ---------- */
   .seg-wrap{display:grid; grid-template-columns:1fr 1.3fr; gap:28px; align-items:center; width:100%;}
@@ -219,7 +216,8 @@
 
         <!-- Slogan — top, prominent -->
         <div class="si-slogan">
-          <p>We are the <strong>decision and audit layer</strong> for dark data.<br/>We do not replace existing tools — we connect to them and make delete/archive decisions <strong>safe, measurable, and auditable</strong>.</p>
+          <p>Existing tools store, govern, and report data.</p>
+          <p class="si-slogan-main">We help enterprises decide what dark data is still worth keeping.</p>
         </div>
 
         <div class="si-diagram">
@@ -228,10 +226,6 @@
           <div class="si-node">
             <div class="si-node-eyebrow">1 · Market Learning</div>
             <div class="si-node-title">The ecosystem is already crowded.</div>
-            <div class="si-node-body">Cloud storage, governance, backup, FinOps, and ESG tools are already strong and well-established.</div>
-            <div class="si-node-tags">
-              <span class="si-ntag">AWS</span><span class="si-ntag">Azure</span><span class="si-ntag">Google Cloud</span><span class="si-ntag">Snowflake</span><span class="si-ntag">Databricks</span><span class="si-ntag">Collibra</span><span class="si-ntag">BigID</span><span class="si-ntag">Rubrik</span><span class="si-ntag">Veeam</span>
-            </div>
           </div>
           <div class="si-arr">↓</div>
 
@@ -239,7 +233,6 @@
           <div class="si-node si-n2">
             <div class="si-node-eyebrow">2 · Strategic Choice</div>
             <div class="si-node-title">We should not claim to manage the whole data lifecycle.</div>
-            <div class="si-node-body">Competing with incumbents across storage, governance, backup, and reporting would be too broad.</div>
           </div>
           <div class="si-arr">↓</div>
 
@@ -247,8 +240,6 @@
           <div class="si-node si-n3">
             <div class="si-node-eyebrow">3 · Market Gap</div>
             <div class="si-node-title">Existing tools optimize infrastructure — not decisions.</div>
-            <div class="si-node-body">They help store, classify, back up, or reduce cost — but rarely answer:</div>
-            <div class="si-node-q">"What should we safely do with this unused data?"</div>
           </div>
           <div class="si-arr">↓</div>
 
@@ -256,29 +247,16 @@
           <div class="si-node si-n4">
             <div class="si-node-eyebrow">4 · Refined Offering</div>
             <div class="si-node-title">Dark Data Decision Intelligence</div>
-            <div class="si-node-body">We help enterprises decide whether to:</div>
-            <div class="si-npills">
-              <span class="si-npill">Keep</span>
-              <span class="si-npill">Compress</span>
-              <span class="si-npill">Anonymize</span>
-              <span class="si-npill">Archive</span>
-              <span class="si-npill si-npill-del">Delete</span>
+            <div class="si-btrans" style="margin-top:12px;">
+              <span class="si-btpill">Cost impact</span>
+              <span class="si-btpill">Carbon impact</span>
+              <span class="si-btpill">Legal risk</span>
+              <span class="si-btpill">Business value</span>
             </div>
           </div>
 
         </div>
 
-        <!-- Core question — plain text, no box -->
-        <div class="si-core">
-          <div class="si-btitle">Core Question We Answer</div>
-          <div class="si-bq">Which data should we act on — and what value does that action create?</div>
-          <div class="si-btrans">
-            <span class="si-btpill">Cost impact</span>
-            <span class="si-btpill">Carbon impact</span>
-            <span class="si-btpill">Legal risk</span>
-            <span class="si-btpill">Business value</span>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -288,320 +266,52 @@
   <!-- ============================================================
        05 — COMPETITIVE LANDSCAPE (capability grid)
   ============================================================ -->
-  <section class="slide">
+  <section class="slide slide-img">
     <div class="kicker">Competitive Landscape</div>
-    <h1 class="title">Five capabilities. No existing player covers more than two.</h1>
+    <h1 class="title">Strong Tools, Missing Decision Layer.</h1>
     <div class="visual">
-      <div>
-        <div class="compgrid">
-          <div class="ch lbl">Category</div>
-          <div class="ch">Scan dark data</div>
-          <div class="ch">Tri-axis scoring</div>
-          <div class="ch">Carbon accounting</div>
-          <div class="ch">Legal &amp; compliance</div>
-          <div class="ch">Auditable deletion</div>
-          <div class="ch">Coverage</div>
-
-          <div class="row us">
-            <div class="rowname"><div class="cat">Dark Data Composting</div><div class="ex">Us</div></div>
-            <div class="cell yes">✓</div>
-            <div class="cell yes">✓</div>
-            <div class="cell yes">✓</div>
-            <div class="cell yes">✓</div>
-            <div class="cell yes">✓</div>
-            <div class="cov">5 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">Hyperscaler storage</div><div class="ex">AWS S3 · GCS · Azure Blob</div></div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell part">◐</div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cov">0 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">Data platforms</div><div class="ex">Snowflake · Databricks</div></div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cov">0 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">Backup &amp; protection</div><div class="ex">Rubrik · Veeam · Cohesity</div></div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cov">0 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">Catalog &amp; governance</div><div class="ex">Collibra · Informatica · Atlan</div></div>
-            <div class="cell yes">✓</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cov">1 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">FinOps</div><div class="ex">Flexera · Apptio · Turbonomic</div></div>
-            <div class="cell part">◐</div>
-            <div class="cell part">◐</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cov">0 / 5</div>
-          </div>
-          <div class="row">
-            <div class="rowname"><div class="cat">ESG / sustainability</div><div class="ex">Watershed · Persefoni</div></div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cell yes">✓</div>
-            <div class="cell no">✗</div>
-            <div class="cell no">✗</div>
-            <div class="cov">1 / 5</div>
-          </div>
-        </div>
-        <div class="complegend">
-          <span style="color:var(--green);">✓ full</span>
-          <span style="color:var(--gold);">◐ partial</span>
-          <span style="color:var(--red);">✗ none</span>
-        </div>
-      </div>
+      <img src="competitiveanalysis.png" alt="Competitive Analysis"/>
     </div>
     <div class="footer"><span>04 / 07 — Competitive Landscape</span><span>Every existing tool is optimised for one column. The composting layer is where they structurally cannot compete.</span></div>
   </section>
 
   <!-- ============================================================
-       06 — STRENGTHS & WEAKNESSES vs US
+       06 — COMPETITIVE CATEGORY ANALYSIS
   ============================================================ -->
-  <section class="slide">
-    <div class="kicker">Strengths &amp; Weaknesses</div>
-    <h1 class="title">Where each competitor is strong — and why they still can't replace us.</h1>
+  <!-- ============================================================
+       05 — STRENGTHS & WEAKNESSES (image)
+  ============================================================ -->
+  <section class="slide slide-img">
+    <div class="kicker">Competitive Analysis</div>
+    <h1 class="title">Strengths and Weaknesses.</h1>
     <div class="visual">
-      <table class="sw-table">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Their Strengths</th>
-            <th>Their Weaknesses vs Us</th>
-            <th>Threat level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Hyperscalers<br/><span style="font-size:10px;color:var(--mute);">AWS · GCP · Azure</span></td>
-            <td>Infinite scale, existing customer trust, native lifecycle policies, partial carbon dashboards.</td>
-            <td>Incentivised to retain — not delete. No cross-cloud view. No legal/compliance scoring. No ESG audit output.</td>
-            <td><span class="verdict med">Medium</span></td>
-          </tr>
-          <tr>
-            <td>Data Platforms<br/><span style="font-size:10px;color:var(--mute);">Snowflake · DBX</span></td>
-            <td>Deep structured-data access, strong ML/AI ecosystem, large enterprise install base.</td>
-            <td>Structured data only — miss unstructured dark data (80% of the problem). No deletion, no ESG, no legal scoring.</td>
-            <td><span class="verdict low">Low</span></td>
-          </tr>
-          <tr>
-            <td>Backup &amp; Protection<br/><span style="font-size:10px;color:var(--mute);">Rubrik · Veeam</span></td>
-            <td>Trusted for data safety, strong compliance workflows, broad enterprise penetration.</td>
-            <td>Mission is to retain and protect — deletion is antithetical. No carbon accounting, no business-value scoring.</td>
-            <td><span class="verdict low">Low</span></td>
-          </tr>
-          <tr>
-            <td>Catalog &amp; Governance<br/><span style="font-size:10px;color:var(--mute);">Collibra · Atlan</span></td>
-            <td>Best-in-class discovery and classification, strong DPO relationships, rich metadata graphs.</td>
-            <td>Catalog without action — owners see the data but lack a deletion workflow or ESG output. No carbon axis.</td>
-            <td><span class="verdict med">Medium</span></td>
-          </tr>
-          <tr>
-            <td>FinOps<br/><span style="font-size:10px;color:var(--mute);">Flexera · Apptio</span></td>
-            <td>Deep CFO/CIO relationships, proven cost-reduction ROI, cloud-agnostic cost view.</td>
-            <td>Cost lens only — no carbon, legal, or ESG framing. Cannot produce CSRD-compliant output.</td>
-            <td><span class="verdict med">Medium</span></td>
-          </tr>
-          <tr>
-            <td>ESG / Sustainability<br/><span style="font-size:10px;color:var(--mute);">Watershed · Persefoni</span></td>
-            <td>Strong CSO relationships, CSRD/SEC reporting workflows, carbon methodology credibility.</td>
-            <td>Report-only — no data-layer access. Cannot reduce Scope-3 emissions, only measure them. Miss the cost and legal axes.</td>
-            <td><span class="verdict low">Low</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <img src="strengthweakness.png" alt="Strengths and Weaknesses"/>
     </div>
-    <div class="footer"><span>05 / 07 — S/W Analysis</span><span>Medium-threat players (hyperscalers, catalog, FinOps) could add one feature — but structural incentives prevent them from owning the full decisioning layer.</span></div>
+    <div class="footer"><span>05 / 07 — Competitive Analysis</span><span>We turn insight into action with defensible, data-level decisions.</span></div>
   </section>
 
   <!-- ============================================================
-       07 — SEGMENT REFINEMENT & POSITIONING MAP
+       06 — MARKET SEGMENT
   ============================================================ -->
-  <section class="slide">
-    <div class="kicker">Market Segment &amp; Positioning</div>
-    <h1 class="title">Entry wedge: EU-regulated Finance &amp; Telco — the segment where all three pressures converge.</h1>
+  <section class="slide slide-img">
+    <div class="kicker">Market Segment</div>
+    <h1 class="title">Where and Why.</h1>
     <div class="visual">
-      <div class="seg-wrap">
-        <div class="seg-icp">
-          <div class="icp-card">
-            <div class="lbl">Refined ICP</div>
-            <div class="val">EU Finance &amp; Telco enterprises</div>
-            <div class="sub">&gt;$1B revenue · 1–10 PB cloud storage · active CSRD reporting obligation · DPO on staff</div>
-          </div>
-          <div class="icp-card">
-            <div class="lbl">Why this segment first</div>
-            <div class="val">Highest convergence of all three pressures</div>
-            <div class="sub">CSRD Scope-3 disclosure (mandatory 2025) + GDPR/DORA retention fines + FinOps cost mandate from CFO. No other segment has all three live simultaneously.</div>
-          </div>
-          <div class="icp-card">
-            <div class="lbl">Expansion path</div>
-            <div class="val">EU Health → UK Finance → US regulated</div>
-            <div class="sub">Each step adds one regulatory driver. US SEC climate rule activates the US market in Year 3.</div>
-          </div>
-        </div>
-
-        <!-- Positioning map SVG -->
-        <svg viewBox="0 0 480 340" width="100%" height="100%">
-          <defs>
-            <marker id="axarr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-              <path d="M0,0 L7,3.5 L0,7 z" fill="#7d9286"/>
-            </marker>
-          </defs>
-
-          <!-- Axes -->
-          <line x1="60" y1="290" x2="450" y2="290" stroke="#22382c" stroke-width="1.5" marker-end="url(#axarr)"/>
-          <line x1="60" y1="290" x2="60"  y2="20"  stroke="#22382c" stroke-width="1.5" marker-end="url(#axarr)"/>
-
-          <!-- Axis labels -->
-          <text x="255" y="318" text-anchor="middle" font-size="11" fill="#7d9286" letter-spacing=".5">ESG / Carbon focus  →</text>
-          <text x="22"  y="160" text-anchor="middle" font-size="11" fill="#7d9286" letter-spacing=".5" transform="rotate(-90,22,160)">Data action depth  →</text>
-
-          <!-- Quadrant shading -->
-          <rect x="60" y="155" width="195" height="135" fill="rgba(224,123,107,.04)" rx="0"/>
-          <rect x="255" y="20"  width="195" height="135" fill="rgba(125,216,127,.06)" rx="0"/>
-
-          <!-- Competitor dots -->
-          <!-- Hyperscalers: low ESG, low action -->
-          <circle cx="130" cy="255" r="14" fill="rgba(110,193,228,.18)" stroke="#6ec1e4" stroke-width="1.2"/>
-          <text x="130" y="259" text-anchor="middle" font-size="9" fill="#6ec1e4" font-weight="700">Hyper</text>
-          <text x="130" y="278" text-anchor="middle" font-size="9" fill="#7d9286">AWS/GCP/Azure</text>
-
-          <!-- FinOps: low ESG, mid action -->
-          <circle cx="145" cy="210" r="13" fill="rgba(214,178,96,.15)" stroke="#d6b260" stroke-width="1.2"/>
-          <text x="145" y="214" text-anchor="middle" font-size="9" fill="#d6b260" font-weight="700">FinOps</text>
-          <text x="145" y="230" text-anchor="middle" font-size="9" fill="#7d9286">Flexera/Apptio</text>
-
-          <!-- Backup: low ESG, low-mid action -->
-          <circle cx="110" cy="230" r="12" fill="rgba(214,178,96,.10)" stroke="#b88d3a" stroke-width="1.2"/>
-          <text x="110" y="234" text-anchor="middle" font-size="8.5" fill="#b88d3a" font-weight="700">Backup</text>
-
-          <!-- Catalog: mid ESG, mid action -->
-          <circle cx="240" cy="195" r="14" fill="rgba(110,193,228,.12)" stroke="#6ec1e4" stroke-width="1.2"/>
-          <text x="240" y="199" text-anchor="middle" font-size="9" fill="#6ec1e4" font-weight="700">Catalog</text>
-          <text x="240" y="215" text-anchor="middle" font-size="9" fill="#7d9286">Collibra/Atlan</text>
-
-          <!-- ESG tools: high ESG, low action -->
-          <circle cx="360" cy="258" r="14" fill="rgba(125,216,127,.12)" stroke="#3fae5f" stroke-width="1.2"/>
-          <text x="360" y="262" text-anchor="middle" font-size="9" fill="#7dd87f" font-weight="700">ESG</text>
-          <text x="360" y="278" text-anchor="middle" font-size="9" fill="#7d9286">Watershed/Persefoni</text>
-
-          <!-- Non-competitors: ERP / Audit -->
-          <circle cx="290" cy="240" r="12" fill="rgba(125,216,127,.07)" stroke="#22382c" stroke-width="1"/>
-          <text x="290" y="244" text-anchor="middle" font-size="8" fill="#7d9286" font-weight="600">ERP</text>
-
-          <circle cx="340" cy="220" r="11" fill="rgba(125,216,127,.07)" stroke="#22382c" stroke-width="1"/>
-          <text x="340" y="224" text-anchor="middle" font-size="8" fill="#7d9286" font-weight="600">Audit</text>
-
-          <!-- Us: high ESG, high action -->
-          <circle cx="400" cy="65" r="20" fill="rgba(125,216,127,.28)" stroke="#7dd87f" stroke-width="2"/>
-          <text x="400" y="61" text-anchor="middle" font-size="10" fill="#7dd87f" font-weight="800">Us</text>
-          <text x="400" y="75" text-anchor="middle" font-size="9" fill="#7dd87f">DDC</text>
-          <text x="400" y="100" text-anchor="middle" font-size="10" fill="#7dd87f">Unique</text>
-          <text x="400" y="113" text-anchor="middle" font-size="10" fill="#7dd87f">position</text>
-        </svg>
-      </div>
+      <img src="marketsegment.png" alt="Market Segment"/>
     </div>
-    <div class="footer"><span>06 / 07 — Segment &amp; Positioning</span><span>Non-competitors (ERP, audit firms) operate in the same buying cycle but sell to adjacent budgets — partnership, not competition.</span></div>
+    <div class="footer"><span>06 / 07 — Market Segment</span><span>Entry wedge: EU-regulated Finance &amp; Telco — where cost, carbon, and compliance pressures converge.</span></div>
   </section>
 
   <!-- ============================================================
-       08 — BUSINESS MODEL
+       07 — BUSINESS MODEL
   ============================================================ -->
-  <section class="slide">
+  <section class="slide slide-img">
     <div class="kicker">Business Model</div>
-    <h1 class="title">Integration SaaS — priced on data volume, anchored in the decisioning layer.</h1>
+    <h1 class="title">Hybrid.</h1>
     <div class="visual">
-      <div class="biz-wrap">
-
-        <!-- Value chain position -->
-        <svg viewBox="0 0 380 320" width="100%" height="100%">
-          <!-- Chain boxes -->
-          <rect x="90" y="10"  width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
-          <text x="190" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Cloud Infrastructure</text>
-
-          <rect x="90" y="68"  width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
-          <text x="190" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Data Platforms &amp; Governance</text>
-
-          <!-- Us highlighted -->
-          <rect x="70" y="126" width="240" height="48" rx="10" fill="rgba(125,216,127,.16)" stroke="#7dd87f" stroke-width="2"/>
-          <text x="190" y="146" text-anchor="middle" font-size="13" font-weight="800" fill="#7dd87f">Dark Data Composting</text>
-          <text x="190" y="163" text-anchor="middle" font-size="11" fill="#7dd87f">← Decisioning &amp; Execution Layer</text>
-
-          <rect x="90" y="192" width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
-          <text x="190" y="217" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">ESG Reporting Tools</text>
-
-          <rect x="90" y="250" width="200" height="40" rx="8" fill="#13241c" stroke="#22382c"/>
-          <text x="190" y="275" text-anchor="middle" font-size="13" font-weight="700" fill="#b7c7bc">Audit / Compliance Teams</text>
-
-          <!-- Arrows -->
-          <line x1="190" y1="50"  x2="190" y2="68"  stroke="#22382c" stroke-width="1.2"/>
-          <line x1="190" y1="108" x2="190" y2="126" stroke="#3fae5f" stroke-width="1.5"/>
-          <line x1="190" y1="174" x2="190" y2="192" stroke="#3fae5f" stroke-width="1.5"/>
-          <line x1="190" y1="232" x2="190" y2="250" stroke="#22382c" stroke-width="1.2"/>
-
-          <!-- Read-only metadata note -->
-          <text x="320" y="155" font-size="9" fill="#7d9286" text-anchor="start">read-only</text>
-          <text x="320" y="166" font-size="9" fill="#7d9286" text-anchor="start">metadata API</text>
-          <line x1="310" y1="155" x2="280" y2="150" stroke="#22382c" stroke-width="1" stroke-dasharray="3"/>
-        </svg>
-
-        <!-- Revenue lines -->
-        <div>
-          <div class="rev-lines">
-            <div class="rev">
-              <div class="n">1</div>
-              <div class="body">
-                <div class="ttl">Platform Subscription</div>
-                <div class="desc">Per-PB scanned per month. Tiered by volume (Starter / Growth / Enterprise). Covers discovery, scoring, and workflow.</div>
-                <div class="tag"><span class="pill green">Core ARR</span></div>
-              </div>
-            </div>
-            <div class="rev">
-              <div class="n">2</div>
-              <div class="body">
-                <div class="ttl">ESG Audit Export (Premium)</div>
-                <div class="desc">CSRD-ready audit log + Scope-3 reduction certificate. Unlocked as a premium tier add-on. High willingness-to-pay during disclosure season.</div>
-                <div class="tag"><span class="pill">Premium Upsell</span></div>
-              </div>
-            </div>
-            <div class="rev">
-              <div class="n">3</div>
-              <div class="body">
-                <div class="ttl">Synthetic Data Exchange</div>
-                <div class="desc">Year 3+ marketplace: anonymised / synthesised datasets sold to AI labs &amp; researchers. Turns data waste into a monetisable asset.</div>
-                <div class="tag"><span class="pill blue">Marketplace — Year 3+</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="validate-box">
-            <b>Validation:</b> CSRD compliance budgets are averaging €1–3M per enterprise (Verdantix 2024). FinOps market growing at 22% CAGR. Comparable integration SaaS (e.g. Rubrik, Collibra) trade at 8–12× ARR. Target: €50K–€200K ACV per enterprise customer.
-          </div>
-        </div>
-
-      </div>
+      <img src="businessmodel.png" alt="Business Model"/>
     </div>
-    <div class="footer"><span>07 / 07 — Business Model</span><span>Model type: B2B Integration SaaS. No data egress — metadata read-only. Revenue aligned with customer outcome: less storage = more value.</span></div>
+    <div class="footer"><span>07 / 07 — Business Model</span><span>Position, act, and prove — subscription SaaS anchored in the data decision layer.</span></div>
   </section>
 
 </div>
